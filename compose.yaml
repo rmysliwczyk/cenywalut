@@ -1,9 +1,11 @@
 services:
   mongodb:
     image: mongo
+    restart: always
 
   backend:
     build: .
+    restart: always
     ports:
       - 8615:8615
 
