@@ -44,8 +44,8 @@ app.listen(port, async () => {
 	await fetchCurrenciesFromNBP()
 	console.log(`API data fetched.`)
 
-	// Refreshing API data every 3 minutes
-	setInterval(fetchCurrenciesFromNBP, (60 * 1000) * 3)
+	// Refreshing API data every 15 minutes
+	setInterval(fetchCurrenciesFromNBP, (60 * 1000) * 15)
 	console.log(`Listening at http://127.0.0.1:${port}`)
 })
 
