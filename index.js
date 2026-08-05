@@ -35,7 +35,7 @@ app.use('/currencies', currencies)
 app.use(jsonErrorHandler)
 
 // Refreshing data every 5 minutes:
-setInterval(fetchCurrenciesFromNBP(), 30 / 1000 * 60 * 5)
+setInterval(fetchCurrenciesFromNBP, (60 * 1000) * 5)
 
 app.listen(port, () => {
 	console.log(`Listening at http://127.0.0.1:${port}`)

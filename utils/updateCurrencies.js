@@ -72,6 +72,5 @@ export async function fetchCurrenciesFromNBP() {
 		}
 	}
 
-	await client.close()
 	return
 }
