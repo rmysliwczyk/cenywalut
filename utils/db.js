@@ -6,7 +6,7 @@ export const client = new MongoClient(MONGODB_URI)
 export let isConnected = false
 export let initializationFinished = false
 
-async function dbConnect() {
+export async function dbConnect() {
 	try {
 		console.log('[MONGODB] Connecting...')
 		await client.connect()
@@ -18,6 +18,3 @@ async function dbConnect() {
 		initializationFinished = true
 	}
 }
-
-dbConnect()
-

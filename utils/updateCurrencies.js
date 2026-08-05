@@ -17,8 +17,6 @@ async function addCurrency(currencyCode, data) {
 	} else {
 		console.log(`Added currency: ${currencyCode}`)
 	}
-
-	return
 }
 
 // Update
@@ -43,8 +41,6 @@ async function updateCurrency(currencyCode, data) {
 			console.log(`Updated currency: ${currencyCode}`)
 		}
 	}
-
-	return
 }
 
 // Fetch and Update or Create
@@ -71,6 +67,4 @@ export async function fetchCurrenciesFromNBP() {
 			}
 		}
 	}
-
-	return
 }

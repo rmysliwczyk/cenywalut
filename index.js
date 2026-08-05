@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import currencies from './routes/currencies.js'
-import {isConnected, initializationFinished} from './utils/db.js'
+import {dbConnect, isConnected, initializationFinished} from './utils/db.js'
 import {fetchCurrenciesFromNBP} from './utils/updateCurrencies.js'
 
 const port = process.env.PORT || 3000
@@ -10,9 +10,8 @@ const app = express()
 
 function dbConnectionCheck(req, res, next) {
 	if (isConnected == false && initializationFinished == false) {
-		const error = new Error(`Databse initialization in progress.`)
-		error.statusCode = 202
-		next(error)
+		console.log(`Database initialization in progress.`)
+		next()
 	} else if (isConnected == false && initializationFinished == true) {
 		const error = new Error(`Couldn't connect to database.`)
 		error.statusCode = 503
@@ -34,10 +33,19 @@ app.use(dbConnectionCheck)
 app.use('/currencies', currencies)
 app.use(jsonErrorHandler)
 
-// Refreshing data every 5 minutes:
-setInterval(fetchCurrenciesFromNBP, (60 * 1000) * 5)
+app.listen(port, async () => {
+	console.log(`Server starting...`)
 
-app.listen(port, () => {
+	console.log(`Database initialization...`)
+	await dbConnect()
+	console.log(`Database initialized.`)
+
+	console.log(`Fetching API data...`)
+	await fetchCurrenciesFromNBP()
+	console.log(`API data fetched.`)
+
+	// Refreshing API data every 3 minutes
+	setInterval(fetchCurrenciesFromNBP, (60 * 1000) * 3)
 	console.log(`Listening at http://127.0.0.1:${port}`)
 })
 
