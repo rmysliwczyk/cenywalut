@@ -1,0 +1,9 @@
+services:
+  mongodb:
+    image: mongo
+
+  backend:
+    build: .
+    ports:
+      - 8615:8615
+

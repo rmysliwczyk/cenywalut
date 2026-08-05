@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import currencies from './routes/currencies.js'
 import {dbConnect, isConnected, initializationFinished} from './utils/db.js'
 import {fetchCurrenciesFromNBP} from './utils/updateCurrencies.js'
@@ -7,6 +8,7 @@ import {fetchCurrenciesFromNBP} from './utils/updateCurrencies.js'
 const port = process.env.PORT || 3000
 
 const app = express()
+app.use(cors())
 
 function dbConnectionCheck(req, res, next) {
 	if (isConnected == false && initializationFinished == false) {
